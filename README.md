@@ -8,7 +8,7 @@
 
 Для полноты изучения объектов исследования, а также для удобства их анализа культуролог может работать с данными на уровне кода. Полезными и понятными инструментами инструментами для подобной работы являются библиотеки Requests и Beautiful Soup, которые хорошо дополняют друг друга. Библиотека requests является стандартным инструментом для составления HTTP-запросов в Python. BeautifulSoup позволяет трансформировать сложный HTML-документ в сложное древо различных объектов Python. Это могут быть теги, навигация или комментарии.
 
-[GitHub Pages](https://github.com/nikolanidvora/project/blob/main/folder/welcome%20to%20the%20internet.jpeg)
+![This is an image](https://github.com/nikolanidvora/project/blob/main/folder/welcome%20to%20the%20internet.jpeg)
 
 # Применение библиотек на примере работы со списком ["250 лучших фильмов"  с сайта Кинопоиск](https://www.kinopoisk.ru/lists/top250/?tab=all).
 
