@@ -92,9 +92,66 @@ print(rate)
 from time import sleep
 ```
 Сделаем так, чтобы код работал для всех фильмов
+```
+data = [] #переменную data, в который будем добавлять все переменные, которые запрашиваем.
 
+for p in range(1, 6): #Список топ-250 разбит на 5 страниц по 50 фильмов. Чтобы код прогрузил данные всех фильмов, создадим цикл, который будет последовательно просматривать страницы.
+    print(p)
 
+    url = f"https://www.kinopoisk.ru/lists/top250/?page={p}&tab=all" #В каждом цикле меняется номер страницы (в адресной строке она записаны как page=<2,3,4>)
+    top = requests.get(url)
+    sleep(7)
+    soup = BeautifulSoup(top.text, 'lxml')
 
+    films = soup.findAll('div', class_='desktop-rating-selection-film-item') #Создаем поиск всех фильмов с уже знакомой нам командой findAll.
 
+    for film in films:
+        link = 'https://www.kinopoisk.ru/'+film.find('a', class_='selection-film-item-meta__link').get('href')
+        russian_name = film.find('a', class_='selection-film-item-meta__link').find('p', class_='selection-film-item-meta__name').text
+        original_name = film.find('a', class_='selection-film-item-meta__link').find('p', class_='selection-film-item-meta__original-name').text
+        country = film.find('a', class_='selection-film-item-meta__link').find('span', class_='selection-film-item-meta__meta-additional-item').text
+        genre = film.find('a', class_='selection-film-item-meta__link').findAll('span', class_='selection-film-item-meta__meta-additional-item')[1].text
+        rate = film.find('span', class_='rating__value rating__value_positive').text
+        data.append([link, russian_name, original_name, country, genre, rate])
+```
+```
+1
+2
+3
+4
+5
+```
+Проверяем, все ли запрашиваемые данные загрузились... И усердно танцуем с бубном.
+```
+len(data)
+```
+```
+250
+```
+Ура!!! с ~~сто~~первой попытки!
+**Pandas** - библиотека **Python** для анализа данных. Она позволяет работать с данными в табличном виде. В **Pandas** можно изучить набор данных, почистить его, внести изменения, проанализировать и сделать выводы, построить графики и многое другое.
+```
+import pandas as pd
+```
+Сейчас библиотека нам нужна, чтобы создать и сохранить таблицу.
+header = ['Ссылка', 'Русское название', 'Оригинальное название, год', 'Страна', 'Жанр', 'Рейтинг']
+```
+df = pd.DataFrame(data, columns=header)
+df.to_csv('kinopoisk_top250.csv', sep=';', encoding='utf8')
+df
+```
+```
 
-
+Ссылка	Русское название	Оригинальное название, год	Страна	Жанр	Рейтинг
+0	https://www.kinopoisk.ru//film/435/	Зеленая миля	Green Mile, The, 1999	США	фэнтези, драма	8.9
+1	https://www.kinopoisk.ru//film/326/	Побег из Шоушенка	Shawshank Redemption, The, 1994	США	драма	8.9
+2	https://www.kinopoisk.ru//film/3498/	Властелин колец: Возвращение короля	Lord of the Rings: The Return of the King, The...	Новая Зеландия, США	фэнтези, приключения	8.8
+3	https://www.kinopoisk.ru//film/312/	Властелин колец: Две крепости	Lord of the Rings: The Two Towers, The, 2002	Новая Зеландия, США	фэнтези, приключения	8.8
+4	https://www.kinopoisk.ru//film/328/	Властелин колец: Братство Кольца	Lord of the Rings: The Fellowship of the Ring,...	Новая Зеландия, США	фэнтези, приключения	8.8
+...	...	...	...	...	...	...
+245	https://www.kinopoisk.ru//film/770973/	Вселенная Стивена Хокинга	Theory of Everything, The, 2014	Великобритания, Япония	биография, мелодрама	8.0
+246	https://www.kinopoisk.ru//film/634254/	Ип Ман 4	Yip Man 4, 2019	Гонконг, Китай	боевик, биография	8.0
+247	https://www.kinopoisk.ru//film/316/	Матрица: Революция	Matrix Revolutions, The, 2003	США	фантастика, боевик	8.0
+248	https://www.kinopoisk.ru//film/493208/	Холодное сердце	Frozen, 2013	США, Норвегия	мультфильм, мюзикл	8.0
+249	https://www.kinopoisk.ru//film/472/	Индиана Джонс и последний крестовый поход	Indiana Jones and the Last Crusade, 1989	США	приключения, боевик	8.0
+```
