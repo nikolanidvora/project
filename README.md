@@ -155,3 +155,4 @@ df
 249	https://www.kinopoisk.ru//film/472/	Индиана Джонс и последний крестовый поход	Indiana Jones and the Last Crusade, 1989	США	приключения, боевик	8.0
 ```
 [Ссылка на код](https://github.com/nikolanidvora/project/blob/main/folder/top250_project.ipynb)
+[Ссылка на получившуюся таблицу](https://github.com/nikolanidvora/project/blob/main/folder/kinopoisk_top250.numbers)
