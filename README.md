@@ -134,14 +134,13 @@ len(data)
 import pandas as pd
 ```
 Сейчас библиотека нам нужна, чтобы создать и сохранить таблицу.
-header = ['Ссылка', 'Русское название', 'Оригинальное название, год', 'Страна', 'Жанр', 'Рейтинг']
 ```
+header = ['Ссылка', 'Русское название', 'Оригинальное название, год', 'Страна', 'Жанр', 'Рейтинг']
 df = pd.DataFrame(data, columns=header)
 df.to_csv('kinopoisk_top250.csv', sep=';', encoding='utf8')
 df
 ```
 ```
-
 Ссылка	Русское название	Оригинальное название, год	Страна	Жанр	Рейтинг
 0	https://www.kinopoisk.ru//film/435/	Зеленая миля	Green Mile, The, 1999	США	фэнтези, драма	8.9
 1	https://www.kinopoisk.ru//film/326/	Побег из Шоушенка	Shawshank Redemption, The, 1994	США	драма	8.9
@@ -155,3 +154,4 @@ df
 248	https://www.kinopoisk.ru//film/493208/	Холодное сердце	Frozen, 2013	США, Норвегия	мультфильм, мюзикл	8.0
 249	https://www.kinopoisk.ru//film/472/	Индиана Джонс и последний крестовый поход	Indiana Jones and the Last Crusade, 1989	США	приключения, боевик	8.0
 ```
+[Ссылка на код](https://github.com/nikolanidvora/project/blob/main/folder/top250_project.ipynb)
